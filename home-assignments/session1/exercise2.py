@@ -1,6 +1,7 @@
 import os
 import urllib.request
 import json
+CurrentLocationAndWeather = 'CurrentLocationAndWeather.txt'
 
 def main():
 # Using the GEOIP-DB website url, get the location information for the current IP address and save to the the variable 'url' # in JSON format. Parse the variable and create 4 more variables to be used to get weather data in the next section.
@@ -25,7 +26,7 @@ def main():
             data1 = json.loads(url1.read().decode())
             temp = (data1["main"])["temp"]
             ResultString = "Your current location is: " + city + "," + country + " and the current temperature is: " + str(temp) + " degrees celsius"
-            f = open('CurrentLocationAndWeather.txt', 'w')
+            f = open(CurrentLocationAndWeather, 'w')
             f.write("%s\r\n" % ResultString)
 
 # Create a list of 10 cities
@@ -61,8 +62,6 @@ def main():
                     temp = (data2["main"])["temp"]
                     OutputString = "The weather in " + cityname + ", " + CountryName + " is " + str(temp) + " degrees celsius."
                     print(OutputString)
-                    f = open('CurrentLocationAndWeather.txt', 'a')
-                    f.write("%s\r\n" % OutputString)
             os._exit(0)
 
 if __name__ == "__main__":
