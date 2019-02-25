@@ -11,8 +11,9 @@ def main():
         buckets_length = len(buckets)
         sorted_buckets = sorted(buckets, key=int)
 
+    nameslist_outputfile = 'nameslist.yml'
     index = 0
-    outfile = open('nameslist.yml', 'w')
+    open(nameslist_outputfile, 'w')
     fitsinbucketdict = {}
 
     while index < buckets_length - 1:
@@ -25,11 +26,15 @@ def main():
 
         for name, age in ppl_ages.items():
             if bottom_partition_key <= age < upper_partition_key:
+                raw_unicode = (name.encode('raw_unicode_escape'))
                 name1 = name.encode('utf-8')
-                yamldata.append(name1)
+                if name == raw_unicode:
+                    yamldata.append(name1)
+                else:
+                    yamldata.append(name)
                 fitsinbucketdict[name] = age
 
-        with open('nameslist.yml', 'a') as outfile:
+        with open(nameslist_outputfile, 'a') as outfile:
             yaml.dump({agerange: yamldata}, outfile, allow_unicode=True, default_flow_style=False)
 
     all(map(ppl_ages.pop, fitsinbucketdict))  # use all() so it works for Python 2 and 3.
@@ -49,8 +54,9 @@ def main():
         else:
             yamldata.append(name)
 
-    with open('nameslist.yml', 'a') as outfile:
+    with open(nameslist_outputfile, 'a') as outfile:
         yaml.dump({agerange: yamldata}, outfile, allow_unicode=True, default_flow_style=False)
+
 
 if __name__ == "__main__":
     main()
