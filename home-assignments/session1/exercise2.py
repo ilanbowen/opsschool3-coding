@@ -51,7 +51,6 @@ def main():
         CityWeatherData = (requests.get(CityWeatherUrl)).json()
         cityname = CityWeatherData["name"]
         countrycode = (CityWeatherData["sys"])["country"]
-#        print(CityWeatherData)
 
         # Prepare a url variable 'CountryURL' to be used to get the Full Country Name
 
